@@ -13,3 +13,6 @@ def validate(defaultArgs, mandatoryArgs, **kwargs):
         if j not in kwargs.keys():
             raise Exception("%s is a mandatory argument." % j)
     return kwargs
+
+def print_json(var):
+    print(json.dumps(var,indent=4,sort_keys=True))

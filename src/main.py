@@ -99,6 +99,11 @@ def main():
     rdsObj = RDSLib.RDS()
     resRDSOps = rdsObj.createRDSSecurityGroup(dbSecGroupName="Amrut-RDS-sec-grp-1", dbSecGroupDescription="Amrut-auto security group for RDS",subnetIDs=[subnetID1,subnetID2], tags=[{"Key":"Name","Value":"Amrut RDS sec group"}])
     '''
+
+    ec2SecObj = EC2Lib.EC2security()
+    detailSecurityGroups = ec2SecObj.getSecurityGroups()
+    print_json(detailSecurityGroups)
+    #Test if framework works
     #print (ec2Obj.EC2Client.describe_instances())
 
 # Call the main function

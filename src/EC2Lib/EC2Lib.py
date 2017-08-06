@@ -44,8 +44,14 @@ class EC2():
 
 class EC2security(EC2):
 
-    def getSecurityGroups(self):
-        pass
+    def getSecurityGroups(self, **kwargs):
+        #get all the security groups in
+        _dryRun = kwargs.get("dryRun", False)
+        try:
+            secGroups = self.EC2Client.describe_security_groups(DryRun=_dryRun)
+        except Exception as e:
+            raise
+        return secGroups
 
     def createSecurityGroup(self, **kwargs):
         _groupName = kwargs.get("groupName")
@@ -136,7 +142,7 @@ class EC2Networking(EC2):
 
         defaultArr = {"dryRun": False}
         mandatoryArr = ["vpcId","cidrBlock" ]
-        kwargs = validate(defaultArgs=defaultArr,mandatoryArgs=mandatoryArr,kwargs=kwargs)
+        kwargs = validate(defaultArgs=defaultArr,mandatoryArgs=mandatoryArr, kwargs=kwargs)
         try:
             resSubnet = self.EC2Client.create_subnet(**kwargs)
 
